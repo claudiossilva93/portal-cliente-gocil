@@ -2,6 +2,16 @@ import React, { Component } from "react";
 import "./styles.css";
 import { getUser } from "../../services/auth";
 import api from "../../services/api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import logo from "../../assets/logo.png";
+import { logout } from "../../services/auth";
+import {
+  faFolder,
+  faFile,
+  faArrowLeft,
+  faSignInAlt,
+  faUserCircle
+} from "@fortawesome/free-solid-svg-icons";
 
 export default class path extends Component {
   state = {
@@ -22,23 +32,42 @@ export default class path extends Component {
       .catch(error => console.error(error));
   };
 
+  handleClickSair = event => {
+    logout();
+    this.props.history.push("/login");
+  };
+
   renderItens = () => {
     return this.state.paths.map((item, i) => {
       let url;
+      let icon;
+      let onClick = () => {};
+
       switch (item.tipo) {
         case "0":
           url = `/path/${item.pai}`;
+          icon = faArrowLeft;
           break;
         case "1":
           url = `/path/${item.id}`;
+          icon = faFolder;
           break;
         case "2":
-          url = item.url_download;
+          onClick = () => window.open(item.url_download, "_blank");
+          url = "#";
+          icon = faFile;
           break;
       }
       return (
         <li key={i}>
-          <a href={url}>{item.descricao}</a>
+          <a href={url} className="item" onClick={onClick}>
+            <FontAwesomeIcon
+              icon={icon}
+              color="#c8a851"
+              style={{ marginRight: 10 }}
+            />
+            {item.descricao}
+          </a>
         </li>
       );
     });
@@ -46,15 +75,34 @@ export default class path extends Component {
 
   render() {
     return (
-      <div>
-        <div className="container">
-          <div className="page-container">
-            <span style={{ fontSize: "36", fontWeight: "bold" }}>
-              Bem vindo, {this.state.user.nome}!
-            </span>
-            <span style={{ fontSize: "22" }}>PATHS</span>
-            <ul>{this.renderItens()}</ul>
-          </div>
+      <div className="container">
+        <nav className="navbar">
+          <img alt="logo" src={logo} className="logo" />
+          <ul className="main-nav" style={{ position: "absolute", right: 0 }}>
+            <li>
+              <section className="user-info">
+                <div>
+                  <FontAwesomeIcon icon={faUserCircle} />
+                </div>
+                <span className="user-name">
+                  <small>Bem vindo, {this.state.user.nome}</small>
+                </span>
+              </section>
+            </li>
+            <li>
+              <a
+                title="Sair"
+                className="nav-icon"
+                onClick={this.handleClickSair}
+              >
+                <FontAwesomeIcon icon={faSignInAlt} />
+                <span className="link-sair"></span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div className="page-container">
+          <ul className="itens">{this.renderItens()}</ul>
         </div>
       </div>
     );

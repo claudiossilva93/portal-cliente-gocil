@@ -9,7 +9,7 @@
   width: 300px;
   display: flex;
   flex-direction: column;
-  background: rgb(255, 255, 255, 0.8);
+  background: rgb(255, 255, 255, 0.6);
   padding: 50px;
   border-radius: 10px;
 }
@@ -31,7 +31,7 @@
 
 #login-container form button {
   height: 40px;
-  background: #1d5b9a;
+  background: #15406a;
   border-radius: 4px;
   font-size: 16px;
   padding: 0 20px;

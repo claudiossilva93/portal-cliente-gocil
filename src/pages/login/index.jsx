@@ -23,17 +23,17 @@ export default class Login extends Component {
     };
   }
 
-  handleClick = event => {
+  handleSubmit = event => {
     event.preventDefault();
     const uri = `dataset/search?datasetId=dsCadastroClienteUsuarioPortal&filterFields=usuario,${this.state.login},senha,${this.state.password}`;
     this.setState({ ...this.state, message: "" });
     if (this.state.login.length === 0) {
       this.setState({ ...this.state, message: "Preencha o campo Usuário" });
-      return;
+      return false;
     }
     if (this.state.login.password === 0) {
       this.setState({ ...this.state, message: "Preencha o campo Senha" });
-      return;
+      return false;
     }
     api
       .get(uri)
@@ -41,11 +41,13 @@ export default class Login extends Component {
         if (response.data.content.length > 0) {
           login(response.data.content[0]);
           this.props.history.push("/path");
+          return true;
         } else {
           this.setState({
             ...this.state,
             message: "Login e senha não conferem."
           });
+          return false;
         }
       })
       .catch(error => console.error(error));
@@ -63,7 +65,7 @@ export default class Login extends Component {
   render() {
     return (
       <div id="login-container" style={backgroundStyle}>
-        <form id="form" method="post">
+        <form id="form" method="get" onSubmit={this.handleSubmit}>
           <img alt="logo" src={logo} />
           <input
             name="login"
@@ -79,7 +81,7 @@ export default class Login extends Component {
             value={this.state.password}
             onChange={this.handlePasswordChange}
           />
-          <button type="button" className="button" onClick={this.handleClick}>
+          <button type="submit" className="button">
             Entrar
           </button>
           <span className="text-danger">{this.state.message}</span>
