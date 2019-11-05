@@ -5,13 +5,8 @@ import api from "../../services/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../../assets/logo.png";
 import { logout } from "../../services/auth";
-import {
-  faFolder,
-  faFile,
-  faArrowLeft,
-  faSignInAlt,
-  faUserCircle
-} from "@fortawesome/free-solid-svg-icons";
+import { faSignInAlt, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { FilePathItem } from "../../components";
 
 export default class path extends Component {
   state = {
@@ -32,45 +27,9 @@ export default class path extends Component {
       .catch(error => console.error(error));
   };
 
-  handleClickSair = event => {
+  handleClickSair = () => {
     logout();
     this.props.history.push("/login");
-  };
-
-  renderItens = () => {
-    return this.state.paths.map((item, i) => {
-      let url;
-      let icon;
-      let onClick = () => {};
-
-      switch (item.tipo) {
-        case "0":
-          url = `/path/${item.pai}`;
-          icon = faArrowLeft;
-          break;
-        case "1":
-          url = `/path/${item.id}`;
-          icon = faFolder;
-          break;
-        case "2":
-          onClick = () => window.open(item.url_download, "_blank");
-          url = "#";
-          icon = faFile;
-          break;
-      }
-      return (
-        <li key={i}>
-          <a href={url} className="item" onClick={onClick}>
-            <FontAwesomeIcon
-              icon={icon}
-              color="#c8a851"
-              style={{ marginRight: 10 }}
-            />
-            {item.descricao}
-          </a>
-        </li>
-      );
-    });
   };
 
   render() {
@@ -102,7 +61,11 @@ export default class path extends Component {
           </ul>
         </nav>
         <div className="page-container">
-          <ul className="itens">{this.renderItens()}</ul>
+          <ul className="itens">
+            {this.state.paths.map(item => (
+              <FilePathItem item={item} />
+            ))}
+          </ul>
         </div>
       </div>
     );
