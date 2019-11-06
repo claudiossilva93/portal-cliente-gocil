@@ -1,7 +1,9 @@
 import OAuth from "oauth-1.0a";
 import CryptoJS from "crypto";
+import { carregarCliente } from "./cliente";
 
 export const USER_KEY = "@portal-client-user";
+export const CLIENTE_KEY = "@portal-client-cliente";
 
 export const isAuthenticated = () => localStorage.getItem(USER_KEY) !== null;
 
@@ -37,10 +39,17 @@ export const getHeader = url => {
 
 export const getUser = () => JSON.parse(localStorage.getItem(USER_KEY));
 
+export const getCliente = () => JSON.parse(localStorage.getItem(CLIENTE_KEY));
+
+export const setCliente = cliente => localStorage.setItem(CLIENTE_KEY, JSON.stringify(cliente));
+
 export const login = user => {
   localStorage.setItem(USER_KEY, JSON.stringify(user));
+  carregarCliente( user.cliente );
 };
 
 export const logout = () => {
   localStorage.removeItem(USER_KEY);
 };
+
+

@@ -7,6 +7,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Item } from "../";
 
+const pathFluig = "/portal/001/GedCliente";
+
 const FilePathItem = props => {
   const { item } = props;
   if (item.tipo === "0")
@@ -14,7 +16,7 @@ const FilePathItem = props => {
       <Item
         id={item.id}
         descricao={item.descricao}
-        url={`/path/${item.pai}`}
+        url={`${pathFluig}/path/${item.pai}`}
         color="#c8a851"
         icon={faArrowLeft}
         onclick={() => {}}
@@ -26,7 +28,7 @@ const FilePathItem = props => {
       <Item
         id={item.id}
         descricao={item.descricao}
-        url={`/path/${item.id}`}
+        url={`${pathFluig}/path/${item.id}`}
         color="#c8a851"
         icon={faFolder}
         onclick={() => {}}

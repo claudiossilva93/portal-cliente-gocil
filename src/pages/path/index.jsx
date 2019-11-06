@@ -4,13 +4,16 @@ import { getUser } from "../../services/auth";
 import api from "../../services/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../../assets/logo.png";
-import { logout } from "../../services/auth";
+import { logout, getCliente } from "../../services/auth";
 import { faSignInAlt, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FilePathItem } from "../../components";
+
+const pathFluig = "/portal/001/GedCliente";
 
 export default class path extends Component {
   state = {
     user: getUser(),
+    cliente: getCliente(),
     paths: [],
     pathId: this.props.match.params.id,
     loading: false
@@ -29,7 +32,7 @@ export default class path extends Component {
 
   handleClickSair = () => {
     logout();
-    this.props.history.push("/login");
+    this.props.history.push(`${pathFluig}/login`);
   };
 
   render() {
@@ -60,7 +63,15 @@ export default class path extends Component {
             </li>
           </ul>
         </nav>
+
+        
+
         <div className="page-container">
+
+        <h1>
+          Cliente: { this.state.cliente.cliente }, CNPJ: { this.state.cliente.cnpj }
+        </h1>
+
           <ul className="itens">
             {this.state.paths.map(item => (
               <FilePathItem key={item.id} item={item} />

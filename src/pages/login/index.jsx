@@ -12,6 +12,8 @@ var backgroundStyle = {
   backgroundPosition: "center top"
 };
 
+const pathFluig = "/portal/001/GedCliente";
+
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +42,7 @@ export default class Login extends Component {
       .then(response => {
         if (response.data.content.length > 0) {
           login(response.data.content[0]);
-          this.props.history.push("/path");
+          this.props.history.push(`${pathFluig}/path`);
           return true;
         } else {
           this.setState({

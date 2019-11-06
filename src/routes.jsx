@@ -31,6 +31,8 @@ const Routes = () => (
       <Route path={`${pathFluig}/login`} exact component={Login} />
       <Route path="/" exact component={Login} />
       <Route path="/login" exact component={Login} />
+      <PrivateRoute path={`${pathFluig}/path`} exact component={Path} />
+      <PrivateRoute path={`${pathFluig}/path/:id`} exact component={Path} />
       <PrivateRoute path="/path" exact component={Path} />
       <PrivateRoute path="/path/:id" exact component={Path} />
       <Route
