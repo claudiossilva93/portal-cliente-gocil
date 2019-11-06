@@ -8,11 +8,11 @@ import {
 import { Item } from "../";
 
 const FilePathItem = props => {
-  const { item, key } = props;
+  const { item } = props;
   if (item.tipo === "0")
     return (
       <Item
-        key={key}
+        id={item.id}
         descricao={item.descricao}
         url={`/path/${item.pai}`}
         color="#c8a851"
@@ -24,7 +24,7 @@ const FilePathItem = props => {
   if (item.tipo === "1")
     return (
       <Item
-        key={key}
+        id={item.id}
         descricao={item.descricao}
         url={`/path/${item.id}`}
         color="#c8a851"
@@ -36,7 +36,7 @@ const FilePathItem = props => {
   if (item.tipo === "2")
     return (
       <Item
-        key={key}
+        id={item.id}
         descricao={item.descricao}
         url="#"
         color="#c8a851"
@@ -47,8 +47,7 @@ const FilePathItem = props => {
 };
 
 FilePathItem.propTypes = {
-  item: PropTypes.object.isRequired,
-  key: PropTypes.number.isRequired
+  item: PropTypes.object.isRequired
 };
 
 export default FilePathItem;

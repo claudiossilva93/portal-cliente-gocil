@@ -33,7 +33,6 @@ export default class path extends Component {
   };
 
   render() {
-    let i = 0;
     return (
       <div className="container">
         <nav className="navbar">
@@ -64,7 +63,7 @@ export default class path extends Component {
         <div className="page-container">
           <ul className="itens">
             {this.state.paths.map(item => (
-              <FilePathItem item={item} key={i++} />
+              <FilePathItem key={item.id} item={item} />
             ))}
           </ul>
         </div>
