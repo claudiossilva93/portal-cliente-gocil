@@ -4,8 +4,6 @@ import { isAuthenticated } from "./services/auth";
 import Login from "./pages/login/index";
 import Path from "./pages/path/index";
 
-const rotaFluig = "/portal/001/GedCliente";
-
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
@@ -15,7 +13,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
       ) : (
         <Redirect
           to={{
-            pathname: `${rotaFluig}/login`,
+            pathname: "/portal/001/GedCliente/login",
             state: { from: props.location }
           }}
         />
@@ -27,10 +25,14 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 const Routes = () => (
   <BrowserRouter>
     <Switch>
-      <Route path={`${rotaFluig}/`} exact component={Login} />
-      <Route path={`${rotaFluig}/login`} exact component={Login} />
-      <PrivateRoute path={`${rotaFluig}/path`} exact component={Path} />
-      <PrivateRoute path={`${rotaFluig}/path/:id`} exact component={Path} />
+      <Route path="/portal/001/GedCliente/" exact component={Login} />
+      <Route path="/portal/001/GedCliente/login" exact component={Login} />
+      <PrivateRoute path="/portal/001/GedCliente/path" exact component={Path} />
+      <PrivateRoute
+        path="/portal/001/GedCliente/path/:id"
+        exact
+        component={Path}
+      />
       <Route
         path="*"
         component={route => {
