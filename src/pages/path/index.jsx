@@ -69,7 +69,7 @@ export default class path extends Component {
         <div className="page-container">
 
         <h1>
-          Cliente: { this.state.cliente.cliente }, CNPJ: { this.state.cliente.cnpj }
+        CNPJ: { this.state.cliente.cnpj }, Cliente: { this.state.cliente.cliente } 
         </h1>
 
           <ul className="itens">
